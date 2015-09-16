@@ -18,17 +18,24 @@ describe('Space', function() {
 
     it("lets a player mark a space", function(){
         var testPlayer = new Player("X");
+        var testPlayer2 = new Player("O");
         var testSpace = new Space(1, 2);
-        testSpace.mark_by(testPlayer);
-        expect(testSpace.markedBy()).to.equal(testPlayer);
+        var testBoard = new Board();
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+        //console.log(testBoard);
+        testSpace.mark_by(testPlayer, testBoard, testGame);
+        expect(testSpace.markedBy()).to.equal(testPlayer.mark);
     });
 
     it("determines if a space is taken by a player", function(){
         var testPlayer = new Player("X");
+        var testPlayer2 = new Player("O");
         var testSpace = new Space(1, 2);
-        testSpace.mark_by(testPlayer);
+        var testBoard = new Board();
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+        testSpace.mark_by(testPlayer, testBoard, testGame);
         var taken = true;
-        expect(testSpace.spaceCheck(1, 2, testPlayer)).to.equal(taken);
+        expect(testSpace.spaceCheck(1, 2, testPlayer.mark)).to.equal(taken);
     });
 });
 
@@ -37,7 +44,7 @@ describe('Game', function(){
         var testPlayer = new Player("X");
         var testPlayer2 = new Player("O");
         var testBoard = new Board();
-        var testGame = new Game(testPlayer, testPlayer2, testBoard);
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
         expect(testGame.p1, testGame.p2, testGame.board).to.eql(testPlayer, testPlayer2, testBoard);
     });
 
@@ -45,17 +52,60 @@ describe('Game', function(){
         var testPlayer = new Player("X");
         var testPlayer2 = new Player("O");
         var testBoard = new Board();
-        var testGame = new Game(testPlayer, testPlayer2, testBoard);
-        var testSpace1 = new Space(2,1);
-        var testSpace2 = new Space(2,2);
-        var testSpace3 = new Space(2,3);
-        testSpace1.mark_by(testPlayer);
-        testSpace2.mark_by(testPlayer);
-        testSpace3.mark_by(testPlayer);
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+        var testSpace1 = new Space(1,1);
+        var testSpace2 = new Space(1,2);
+        var testSpace3 = new Space(1,3);
+        testSpace1.mark_by(testPlayer, testBoard, testGame);
+        testSpace2.mark_by(testPlayer, testBoard, testGame);
+        testSpace3.mark_by(testPlayer, testBoard, testGame);
         testBoard.markedSquare(testSpace1);
         testBoard.markedSquare(testSpace2);
         testBoard.markedSquare(testSpace3);
-        expect(testGame.win(testBoard)).to.eql(testPlayer.mark);
+        expect(testGame.win(testBoard, testGame.turns)).to.eql(testPlayer.mark);
+    });
+
+    it("keeps a tally of number of turns => increase number of turns by one every turn", function(){
+        var testPlayer = new Player("X");
+        var testPlayer2 = new Player("O");
+        var testBoard = new Board();
+        //var testSpace1 = new Space(1,3);
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+        expect(testGame.advanceTurns()).to.equal(1);
+    });
+
+    it("determines if the game is a draw", function(){
+        var testPlayer = new Player("X");
+        var testPlayer2 = new Player("O");
+        var testBoard = new Board();
+        var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+        var testSpace1 = new Space(1,1);
+        var testSpace2 = new Space(1,2);
+        var testSpace3 = new Space(1,3);
+        var testSpace4 = new Space(2,1);
+        var testSpace5 = new Space(2,2);
+        var testSpace6 = new Space(2,3);
+        var testSpace7 = new Space(3,1);
+        var testSpace8 = new Space(3,2);
+        var testSpace9 = new Space(3,3);
+        testSpace1.mark_by(testPlayer, testBoard, testGame);
+        testSpace2.mark_by(testPlayer, testBoard, testGame);
+        testSpace5.mark_by(testPlayer, testBoard, testGame);
+        testSpace6.mark_by(testPlayer, testBoard, testGame);
+        testSpace7.mark_by(testPlayer, testBoard, testGame);
+        testSpace3.mark_by(testPlayer2, testBoard, testGame);
+        testSpace4.mark_by(testPlayer2, testBoard, testGame);
+        testSpace8.mark_by(testPlayer2, testBoard, testGame);
+        testSpace9.mark_by(testPlayer2, testBoard, testGame);
+        // var markedSpaces =
+        //         [ testSpace1, testSpace2, testSpace5, testSpace6, testSpace7,
+        //         testSpace3, testSpace4, testSpace8, testSpace9 ];
+        // for (var i = 1; i <= 9; i++){
+        //     console.log(markedSpaces[i]);
+        //
+        //     testBoard.markedSquare(markedSpaces[i])
+        // }
+        expect(testGame.win(testBoard, testGame.turns)).to.equal("DRAW");
     });
 });
 
@@ -66,7 +116,7 @@ describe('Board', function(){
         var testBoard = new Board();
         var testGame = new Game(testPlayer, testPlayer2, testBoard);
         var testSpace = new Space(2,2);
-        testSpace.mark_by(testPlayer);
+        testSpace.mark_by(testPlayer, testBoard, testGame);
         expect(testBoard.markedSquare(testSpace)).to.equal(testPlayer.mark);
     });
 });
