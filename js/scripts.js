@@ -20,13 +20,11 @@ function Board(){
 }
 
 Game.prototype.win = function(board, turns){
-    console.log(board + " : " + turns);
     var allTaken = false;
     var combos = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
                     [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6] ];
     for (var i = 0; i < combos.length; i++){
         for(var j = 0; j < combos[i].length; j++){
-            //console.log(combos[i] + " = combo index 'i': " + combos[i][j] + " = combos[i][j]");
             if((board.spaces[combos[i][j]] === board.spaces[combos[i][j+1]]) &&
                 (board.spaces[combos[i][j+1]] === board.spaces[combos[i][j+2]])
                 && (board.spaces[combos[i][j]] !== "")){
@@ -36,15 +34,14 @@ Game.prototype.win = function(board, turns){
             }
         }
     }
-
 }
+
 Game.prototype.advanceTurns = function(){
     this.turns++;
     return this.turns;
 }
-// POSSIBLY ALSO ADD 'GAME TO THE PARAMETERS TO BE ABLE TO INCREMENT 'GAME.TURNS'
+
 Space.prototype.mark_by = function(player, board, game){
-    console.log(board);
     this.player = player.mark;
     board.markedSquare(this);
     game.advanceTurns();
@@ -100,3 +97,48 @@ Board.prototype.markedSquare = function(space){
         }
     }
 }
+
+$(document).ready(function() {
+    event.preventDefault();
+    console.log($("a.getValue").attr('value'));
+    $('a.getValue').submit(function(){
+        var rawSpace = $(this).attr('value');
+    // })
+    //$('.game').on('click', '.square', function() {
+            //console.log($(".square").attr('va'));
+            // var space;
+        // switch ($(".square").attr('id')){
+        switch (rawSpace){
+            case "0":
+                space = new Space(1, 1);
+                break;
+            case 1:
+                var space = new Space(1, 2);
+                break;
+            case 2:
+                var space = new Space(1, 3);
+                break;
+            case 3:
+                var space = new Space(2, 1);
+                break;
+            case 4:
+                var space = new Space(2, 2);
+                break;
+            case 5:
+                var space = new Space(2, 3);
+                break;
+            case 6:
+                var space = new Space(3, 1);
+                break;
+            case 7:
+                var space = new Space(3, 2);
+                break;
+            case 8:
+                var space = new Space(3, 3);
+                break;
+        }
+        console.log(space);
+        return space;
+    });
+
+});

@@ -1,3 +1,17 @@
-#result {
-    display: none;
+.square {
+    float:left;
+    position: relative;
+    width: 30%;
+    padding-bottom : 30%;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+
+}
+
+.r-border {
+  border-right: 1px solid #333;
+}
+.b-border {
+  border-bottom: 1px solid #333;
 }

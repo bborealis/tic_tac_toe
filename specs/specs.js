@@ -22,7 +22,6 @@ describe('Space', function() {
         var testSpace = new Space(1, 2);
         var testBoard = new Board();
         var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
-        //console.log(testBoard);
         testSpace.mark_by(testPlayer, testBoard, testGame);
         expect(testSpace.markedBy()).to.equal(testPlayer.mark);
     });
@@ -69,7 +68,6 @@ describe('Game', function(){
         var testPlayer = new Player("X");
         var testPlayer2 = new Player("O");
         var testBoard = new Board();
-        //var testSpace1 = new Space(1,3);
         var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
         expect(testGame.advanceTurns()).to.equal(1);
     });
@@ -97,14 +95,6 @@ describe('Game', function(){
         testSpace4.mark_by(testPlayer2, testBoard, testGame);
         testSpace8.mark_by(testPlayer2, testBoard, testGame);
         testSpace9.mark_by(testPlayer2, testBoard, testGame);
-        // var markedSpaces =
-        //         [ testSpace1, testSpace2, testSpace5, testSpace6, testSpace7,
-        //         testSpace3, testSpace4, testSpace8, testSpace9 ];
-        // for (var i = 1; i <= 9; i++){
-        //     console.log(markedSpaces[i]);
-        //
-        //     testBoard.markedSquare(markedSpaces[i])
-        // }
         expect(testGame.win(testBoard, testGame.turns)).to.equal("DRAW");
     });
 });
