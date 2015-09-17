@@ -105,10 +105,14 @@ var board = new Board();
 var game = new Game(playerX, playerO, board, 0);
 var switchPlayer = function(player){
   if(player === playerX) {
+    $(".container h3#playerX").hide();
+    $(".container h3#playerO").show();
     player = playerO;
     return player;
   }
   else {
+    $(".container h3#playerO").hide();
+    $(".container h3#playerX").show();
     player = playerX;
     return player;
   }
@@ -148,28 +152,18 @@ var play = function(player){
               var playSpace = new Space(3, 3);
               break;
       }
-      console.log(playSpace);
       if (currPlayer === playerX){
           playSpace.mark_by(playerX, board, game);
           var id_to_mark = board.markedSquare(playSpace);
           var divId = "#_" + id_to_mark + " span#X";
           $(divId).show();
-          console.log("ID = " + id_to_mark + ", html id = " + divId);
-          console.log("turns: " + game.turns);
       } else{
           playSpace.mark_by(playerO, board, game);
           var id_to_mark = board.markedSquare(playSpace);
           var divId = "#_" + id_to_mark + " span#O";
           $(divId).show();
-          console.log("ID = " + id_to_mark + ", html id = " + divId);
-          console.log("turns: " + game.turns);
       }
       currPlayer = switchPlayer(currPlayer);
-      console.log(currPlayer);
-
-  //    play(currPlayer);
-
-      console.log(currPlayer);
       var result = game.win(board);
       if (result === false){
 
@@ -178,23 +172,12 @@ var play = function(player){
           alert(result);
           (alert).click(window.location.reload());
         }
-      //////////////////////////
   });
 }
-// start game
+// start game -- only happens once, after play button is clicked
 $("button").click(function(event){
   event.preventDefault();
   $(this).hide();
   $("#playerX").show("slow");
+  play(currPlayer);
 });
-
-play(currPlayer);
-
-//////////////////////////
-// player1 play()
-//    check for win
-
-// switch players
-
-// player2 play()
-//    check for win
