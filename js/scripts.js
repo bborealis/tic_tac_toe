@@ -98,47 +98,41 @@ Board.prototype.markedSquare = function(space){
     }
 }
 
-$(document).ready(function() {
-    event.preventDefault();
-    console.log($("a.getValue").attr('value'));
-    $('a.getValue').submit(function(){
-        var rawSpace = $(this).attr('value');
-    // })
-    //$('.game').on('click', '.square', function() {
-            //console.log($(".square").attr('va'));
-            // var space;
-        // switch ($(".square").attr('id')){
-        switch (rawSpace){
-            case "0":
-                space = new Space(1, 1);
-                break;
-            case 1:
-                var space = new Space(1, 2);
-                break;
-            case 2:
-                var space = new Space(1, 3);
-                break;
-            case 3:
-                var space = new Space(2, 1);
-                break;
-            case 4:
-                var space = new Space(2, 2);
-                break;
-            case 5:
-                var space = new Space(2, 3);
-                break;
-            case 6:
-                var space = new Space(3, 1);
-                break;
-            case 7:
-                var space = new Space(3, 2);
-                break;
-            case 8:
-                var space = new Space(3, 3);
-                break;
-        }
-        console.log(space);
-        return space;
-    });
 
+
+$(".game div").click(function(event){
+    event.preventDefault();
+    var rawSpace = $(this).attr("id");
+    console.log($(this).attr("id"));
+    switch (rawSpace){
+        case "0":
+            space = new Space(1, 1);
+            break;
+        case "1":
+            var space = new Space(1, 2);
+            break;
+        case "2":
+            var space = new Space(1, 3);
+            break;
+        case "3":
+            var space = new Space(2, 1);
+            break;
+        case "4":
+            var space = new Space(2, 2);
+            break;
+        case "5":
+            var space = new Space(2, 3);
+            break;
+        case "6":
+            var space = new Space(3, 1);
+            break;
+        case "7":
+            var space = new Space(3, 2);
+            break;
+        case "8":
+            var space = new Space(3, 3);
+            break;
+    }
+    console.log(space);
+    return space;
 });

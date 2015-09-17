@@ -1,17 +1,32 @@
+html body{
+  background-size:contain;
+}
 .square {
     float:left;
     position: relative;
     width: 30%;
-    padding-bottom : 30%;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-size:cover;
+    height: 30%;
+    text-align:center;
+    padding-top: 10%;
+    /*padding-bottom : 30%;
+    /*background-position:center center;
+    background-repeat:no-repeat;*/
+}
+.game{
+  max-height: 300px;
+  background-size:contain;
 
 }
-
 .r-border {
   border-right: 1px solid #333;
 }
 .b-border {
   border-bottom: 1px solid #333;
+}
+h1{
+  text-align:center;
+}
+#X, #O{
+  font-size:400%;
+  /*display:none;*/
 }
