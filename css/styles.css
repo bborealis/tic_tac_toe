@@ -4,7 +4,7 @@ html body{
 .square {
     float:left;
     position: relative;
-    width: 30%;
+    width: 33%;
     height: 30%;
     text-align:center;
     padding-top: 10%;
@@ -18,10 +18,10 @@ html body{
 
 }
 .r-border {
-  border-right: 1px solid #333;
+  border-right: 10px solid #333;
 }
 .b-border {
-  border-bottom: 1px solid #333;
+  border-bottom: 10px solid #333;
 }
 h1{
   text-align:center;

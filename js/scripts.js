@@ -5,6 +5,7 @@ function Player(mark){
 function Space(x_axis, y_axis){
     this.x_axis = x_axis;
     this.y_axis = y_axis;
+    this.player = null;
 }
 
 function Game(p1, p2, board, turns){
@@ -43,60 +44,107 @@ Game.prototype.advanceTurns = function(){
 }
 
 Space.prototype.mark_by = function(player, board, game){
-    this.player = player.mark;
-    board.markedSquare(this);
-    game.advanceTurns();
+    if (this.player === null){
+      this.player = player.mark;
+      //board.markedSquare(this);
+      game.advanceTurns();
+      return true;
+    }else{
+      return false;
+    }
 }
 
 Space.prototype.markedBy = function(){
-    return this.player;
+    if(this.player === null){
+      return null;
+    }else{return true;}
+
 }
 
-Space.prototype.spaceCheck = function(x, y, player){
-    if (this.markedBy() === player){
-        return true;
-    } else {return false;}
+Space.prototype.spaceCheck = function(){
+    if (this.markedBy() === null){
+        return false;
+    } else {return true;}
 }
-
+// returns the div id to mark, or returns true if the space is taken
+// calls Space::spaceCheck()
 Board.prototype.markedSquare = function(space){
     var x = space.x_axis;
     var y = space.y_axis;
     if (x === 1) {
         if (y === 1 ) {
-            this.spaces[0] = space.markedBy();
+            console.log(this.spaces[0]);
+          if(this.spaces[0] === ""){
+            this.spaces[0] = space.player;
             return 0;
+          }else{
+            return 9;
+          }
         } else if (y === 2){
-            this.spaces[1] = space.markedBy();
+          if(this.spaces[1] === ""){
+            this.spaces[1] = space.player;
             return 1;
+          }else{
+            return 9;
+          }
         } else {
-            this.spaces[2] = space.markedBy();
-            return 2;
+            if (this.spaces[2] === ""){
+              this.spaces[2] = space.player;
+              return 2;
+            }else{
+              return 9;
+            }
         }
     }
     if (x === 2) {
         if (y === 1 ) {
-            this.spaces[3] = space.markedBy();
+          if(this.spaces[3] === ""){
+            this.spaces[3] = space.player;
             return 3;
+          }else{
+            return 9;
+          }
         } else if (y === 2){
-            this.spaces[4] = space.markedBy();
+          if(this.spaces[4] === ""){
+            this.spaces[4] = space.player;
             return 4;
+          }else{
+            return 9;
+          }
         } else {
-            this.spaces[5] = space.markedBy();
+          if(this.spaces[5] === ""){
+            this.spaces[5] = space.player;
             return 5;
+          }else{
+            return 9;
+          }
         }
     }
     if (x === 3) {
         if (y === 1 ) {
-            this.spaces[6] = space.markedBy();
+          if(this.spaces[6] === ""){
+            this.spaces[6] = space.player;
             return 6;
+          }else{
+            return 9;
+          }
         } else if (y === 2){
-            this.spaces[7] = space.markedBy();
+          if(this.spaces[7] === ""){
+            this.spaces[7] = space.player;
             return 7;
+          }else{
+            return 9;
+          }
         } else {
-            this.spaces[8] = space.markedBy();
+          if(this.spaces[8] === ""){
+            this.spaces[8] = space.player;
             return 8;
+          }else{
+            return 9;
+          }
         }
     }
+
 }
 //create game elements
 var playerX = new Player("X");
@@ -119,6 +167,7 @@ var switchPlayer = function(player){
 }
 //create play function
 var currPlayer = playerX;
+var validMove = true;
 var play = function(player){
   $(".game div").click(function(event){
       event.preventDefault();
@@ -152,28 +201,51 @@ var play = function(player){
               var playSpace = new Space(3, 3);
               break;
       }
-      if (currPlayer === playerX){
-          playSpace.mark_by(playerX, board, game);
-          var id_to_mark = board.markedSquare(playSpace);
-          var divId = "#_" + id_to_mark + " span#X";
-          $(divId).show();
-      } else{
-          playSpace.mark_by(playerO, board, game);
-          var id_to_mark = board.markedSquare(playSpace);
-          var divId = "#_" + id_to_mark + " span#O";
-          $(divId).show();
-      }
-      currPlayer = switchPlayer(currPlayer);
-      var result = game.win(board);
-      if (result === false){
+        if (currPlayer === playerX){
+            playSpace.mark_by(playerX, board, game);
+            var id_to_mark = board.markedSquare(playSpace);
+            if (id_to_mark === 9){
+              validMove = false;
+              game.turns--;
+              alert("invalid square");
+            }else{
+              var divId = "#_" + id_to_mark + " span#X";
+              var divIdDisabled = "#_" + id_to_mark;
+              $(divIdDisabled).prop("disabled", true);
+              $(divId).show();
+              validMove = true;
+            }
+        }
+        else{
+            playSpace.mark_by(playerO, board, game);
 
-      }
+            var id_to_mark = board.markedSquare(playSpace);
+            if (id_to_mark === 9){
+              validMove = false;
+              game.turns--;
+              alert("invalid square");
+            }else{
+              var divId = "#_" + id_to_mark + " span#O";
+              var divIdDisabled = "#_" + id_to_mark;
+              $(divIdDisabled).prop("disabled", true);
+              $(divId).show();
+              validMove = true;
+            }
+        }
+        var result = game.win(board);
+        if (result === false){
+
+        }
         else{
           alert(result);
           (alert).click(window.location.reload());
         }
-  });
-}
+        if(validMove){
+          currPlayer = switchPlayer(currPlayer);
+        }
+
+    });
+  }
 // start game -- only happens once, after play button is clicked
 $("button").click(function(event){
   event.preventDefault();

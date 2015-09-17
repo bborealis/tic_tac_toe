@@ -13,9 +13,16 @@
             <div id="game-over-O-win">
               <h2>Game Over! Player O wins!</h2>
             </div> -->
-            <button style="font-size:300%; id:start-game">Play Tic Tac Toe!</button>
-            <h3 id="playerX">Player "X", pick a square!</h3>
-            <h3 id="playerO">Player "O", pick a square!</h3>
+            <div class="row">
+              <div class="col-xs-1"></div>
+              <div class="col-xs-10">
+                <button style="font-size:300%; id:start-game">Play Tic Tac Toe!</button>
+                <h3 id="playerX">Player "X", pick a square!</h3>
+                <h3 id="playerO">Player "O", pick a square!</h3>
+              </div>
+              <div class="col-xs-1"></div>
+            </div>
+            <div class="row">
             <div class="game">
                 <div class ="square r-border b-border" id="_0">
                   <span class="markX" id="X">X</span>
@@ -54,6 +61,8 @@
                   <span class="markO" id="O">O</span>
                 </div>
             </div>
+          </div>
+          <div class="row"></div>
         </div>
 
         <script src="js/jquery-1.11.3.js"></script>
