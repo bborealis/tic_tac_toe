@@ -28,5 +28,11 @@ h1{
 }
 #X, #O{
   font-size:400%;
-  /*display:none;*/
+  display:none;
+}
+#game-over-X-win, #game-over-O-win{
+  display:none;
+}
+#playerX, #playerO{
+  display:none;
 }
