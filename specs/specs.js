@@ -61,7 +61,7 @@ describe('Game', function(){
         testBoard.markedSquare(testSpace1);
         testBoard.markedSquare(testSpace2);
         testBoard.markedSquare(testSpace3);
-        expect(testGame.win(testBoard, testGame.turns)).to.eql(testPlayer.mark);
+        expect(testGame.win(testBoard)).to.equal("Player X wins!");
     });
 
     it("keeps a tally of number of turns => increase number of turns by one every turn", function(){
@@ -95,7 +95,7 @@ describe('Game', function(){
         testSpace4.mark_by(testPlayer2, testBoard, testGame);
         testSpace8.mark_by(testPlayer2, testBoard, testGame);
         testSpace9.mark_by(testPlayer2, testBoard, testGame);
-        expect(testGame.win(testBoard, testGame.turns)).to.equal("DRAW");
+        expect(testGame.win(testBoard)).to.equal("DRAW");
     });
 });
 
@@ -107,6 +107,6 @@ describe('Board', function(){
         var testGame = new Game(testPlayer, testPlayer2, testBoard);
         var testSpace = new Space(2,2);
         testSpace.mark_by(testPlayer, testBoard, testGame);
-        expect(testBoard.markedSquare(testSpace)).to.equal(testPlayer.mark);
+        expect(testBoard.markedSquare(testSpace)).to.equal(4);
     });
 });

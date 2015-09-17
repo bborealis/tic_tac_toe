@@ -19,7 +19,7 @@ function Board(){
     this.spaces = [ empty, empty, empty, empty, empty, empty, empty, empty, empty ];
 }
 
-Game.prototype.win = function(board, turns){
+Game.prototype.win = function(board){
     var allTaken = false;
     var combos = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
                     [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6] ];
@@ -28,12 +28,13 @@ Game.prototype.win = function(board, turns){
             if((board.spaces[combos[i][j]] === board.spaces[combos[i][j+1]]) &&
                 (board.spaces[combos[i][j+1]] === board.spaces[combos[i][j+2]])
                 && (board.spaces[combos[i][j]] !== "")){
-                return board.spaces[combos[i][j]];
-            }else if((i === combos.length - 1 && j === combos[i].length - 1) && turns === 9){
+                return "Player " + board.spaces[combos[i][j]] + " wins!";
+            }else if((i === combos.length - 1 && j === combos[i].length - 1) && this.turns === 9){
                 return "DRAW";
             }
         }
     }
+    return false;
 }
 
 Game.prototype.advanceTurns = function(){
@@ -166,9 +167,17 @@ var play = function(player){
       currPlayer = switchPlayer(currPlayer);
       console.log(currPlayer);
 
-      play(currPlayer);
+  //    play(currPlayer);
 
       console.log(currPlayer);
+      var result = game.win(board);
+      if (result === false){
+
+      }
+        else{
+          alert(result);
+          (alert).click(window.location.reload());
+        }
       //////////////////////////
   });
 }
